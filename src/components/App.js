@@ -12,6 +12,17 @@ function App() {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
+  const displayParticipant= (data)=> {
+    var s="";
+    for(var i=0; i<data.length; i++){
+      s+= data[i].email;
+      if(i !== data.length-1){
+        s+=","
+      }
+    }
+    return s;
+  }
+
   const handleCreateFormSubmit = (e) => {
     e.preventDefault();
     var data = {};
@@ -28,7 +39,7 @@ function App() {
       method: "get",
       url: link + "interview",
     }).then((res) => setUpcomingInterviews(res.data));
-    upcomingInterviews.map((i) => console.log(typeof i.participants));
+    upcomingInterviews.map((i) => console.log(i));
   }, []);
   return (
     <React.Fragment>
@@ -110,6 +121,8 @@ function App() {
       <th scope="col">Description</th>
       <th scope="col">Start Time</th>
       <th scope="col">End Time</th>
+      <th scope="col">Participants</th>
+
 
     </tr>
   </thead>
@@ -122,6 +135,10 @@ function App() {
                 <td>{interviews.description}</td>
                 <td>{moment(interviews.startTime).format("DD MMM, YYYY HH:mm")}</td>
                 <td>{moment(interviews.endTime).format("DD MMM, YYYY HH:mm")}</td>
+                <td>
+                  {displayParticipant(interviews.participants)} 
+                </td>
+                
                 </tr>
               </tbody>
             ))}
