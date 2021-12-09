@@ -89,10 +89,10 @@ function App() {
     }
     for (var i = 0; i < arr.length; i++) {
       arr[i] = arr[i].trim();
-      // if(!validateEmail(arr[i])){
-      //   alert("Error: Participant's email invalid")
-      //   return;
-      // }
+      if(!validateEmail(arr[i])){
+        alert("Error: Participant's email invalid")
+        return;
+      }
     }
     var data = {};
       data["title"] = title;
@@ -114,6 +114,7 @@ function App() {
           setAlertClassName("alert alert-danger");
         }
         setAlertMessage(res.data);
+        setIsOn(isOn ^ 1);
       });
     }else{
       data["interviewId"]=oldData;
@@ -124,9 +125,10 @@ function App() {
           setAlertClassName("alert alert-danger");
         }
         setAlertMessage(res.data);
+        setIsOn(isOn ^ 1);
       });
     }
-    setIsOn(isOn ^ 1);
+    
   };
 
   useEffect(() => {
